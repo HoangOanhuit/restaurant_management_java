@@ -1,60 +1,68 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.quanlyquanan.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
-
+/**
+ * Model class cho Material (Nguyên liệu)
+ * @author Admin
+ */
 public class Material {
     private int id;
     private String name;
     private String unit;
-    private BigDecimal pricePerUnit;
     private BigDecimal quantity;
+    private BigDecimal pricePerUnit;
     private BigDecimal threshold;
-    private String description;
     private boolean isActive;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 
     // Constructor không tham số
     public Material() {
-        this.isActive = true;
         this.quantity = BigDecimal.ZERO;
-        this.threshold = BigDecimal.valueOf(10.00);
         this.pricePerUnit = BigDecimal.ZERO;
+        this.threshold = BigDecimal.TEN; // Default threshold = 10
+        this.isActive = true;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
 
     // Constructor đầy đủ tham số
-    public Material(int id, String name, String unit, BigDecimal pricePerUnit, 
-                   BigDecimal quantity, BigDecimal threshold, String description,
-                   boolean isActive, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Material(int id, String name, String unit, BigDecimal quantity,
+                   BigDecimal pricePerUnit, BigDecimal threshold, boolean isActive,
+                   LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
         this.unit = unit;
-        this.pricePerUnit = pricePerUnit;
         this.quantity = quantity;
+        this.pricePerUnit = pricePerUnit;
         this.threshold = threshold;
-        this.description = description;
         this.isActive = isActive;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
 
     // Constructor cho tạo mới (không có id)
-    public Material(String name, String unit, BigDecimal pricePerUnit, 
-                   BigDecimal threshold, String description) {
+    public Material(String name, String unit, BigDecimal quantity,
+                   BigDecimal pricePerUnit, BigDecimal threshold) {
         this.name = name;
         this.unit = unit;
+        this.quantity = quantity;
         this.pricePerUnit = pricePerUnit;
-        this.quantity = BigDecimal.ZERO;
         this.threshold = threshold;
-        this.description = description;
+        this.isActive = true;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    // Constructor đơn giản
+    public Material(String name, String unit, BigDecimal pricePerUnit) {
+        this.name = name;
+        this.unit = unit;
+        this.quantity = BigDecimal.ZERO;
+        this.pricePerUnit = pricePerUnit;
+        this.threshold = BigDecimal.TEN;
         this.isActive = true;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
@@ -87,21 +95,21 @@ public class Material {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public BigDecimal getPricePerUnit() {
-        return pricePerUnit;
-    }
-
-    public void setPricePerUnit(BigDecimal pricePerUnit) {
-        this.pricePerUnit = pricePerUnit;
-        this.updatedAt = LocalDateTime.now();
-    }
-
     public BigDecimal getQuantity() {
         return quantity;
     }
 
     public void setQuantity(BigDecimal quantity) {
         this.quantity = quantity;
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    public BigDecimal getPricePerUnit() {
+        return pricePerUnit;
+    }
+
+    public void setPricePerUnit(BigDecimal pricePerUnit) {
+        this.pricePerUnit = pricePerUnit;
         this.updatedAt = LocalDateTime.now();
     }
 
@@ -114,21 +122,12 @@ public class Material {
         this.updatedAt = LocalDateTime.now();
     }
 
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-        this.updatedAt = LocalDateTime.now();
-    }
-
     public boolean isActive() {
         return isActive;
     }
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        isActive = active;
         this.updatedAt = LocalDateTime.now();
     }
 
@@ -149,20 +148,49 @@ public class Material {
     }
 
     // Utility methods
-    public boolean isLowStock() {
-        return quantity.compareTo(threshold) <= 0;
-    }
-
-    public BigDecimal getTotalValue() {
-        return pricePerUnit.multiply(quantity);
-    }
-
     public String getQuantityWithUnit() {
         return quantity + " " + unit;
     }
 
-    public String getThresholdWithUnit() {
-        return threshold + " " + unit;
+    public BigDecimal getTotalValue() {
+        return quantity.multiply(pricePerUnit);
+    }
+
+    public boolean isLowStock() {
+        return quantity.compareTo(threshold) <= 0;
+    }
+
+    public String getStockStatus() {
+        if (isLowStock()) {
+            return "Sắp hết";
+        } else if (quantity.compareTo(threshold.multiply(BigDecimal.valueOf(2))) <= 0) {
+            return "Còn ít";
+        } else {
+            return "Đủ";
+        }
+    }
+
+    public String getDisplayName() {
+        return isActive ? name : name + " (Tạm ngưng)";
+    }
+
+    public void addQuantity(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) > 0) {
+            this.quantity = this.quantity.add(amount);
+            this.updatedAt = LocalDateTime.now();
+        }
+    }
+
+    public void subtractQuantity(BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) > 0 && 
+            this.quantity.compareTo(amount) >= 0) {
+            this.quantity = this.quantity.subtract(amount);
+            this.updatedAt = LocalDateTime.now();
+        }
+    }
+
+    public boolean hasEnoughQuantity(BigDecimal requiredAmount) {
+        return this.quantity.compareTo(requiredAmount) >= 0;
     }
 
     @Override
@@ -171,10 +199,9 @@ public class Material {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", unit='" + unit + '\'' +
-                ", pricePerUnit=" + pricePerUnit +
                 ", quantity=" + quantity +
+                ", pricePerUnit=" + pricePerUnit +
                 ", threshold=" + threshold +
-                ", description='" + description + '\'' +
                 ", isActive=" + isActive +
                 ", createdAt=" + createdAt +
                 ", updatedAt=" + updatedAt +
@@ -192,5 +219,13 @@ public class Material {
     @Override
     public int hashCode() {
         return Integer.hashCode(id);
+    }
+
+    public String getDescription() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    public void setDescription(String string) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 }

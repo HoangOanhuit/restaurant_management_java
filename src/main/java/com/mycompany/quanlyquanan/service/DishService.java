@@ -72,11 +72,11 @@ public class DishService {
      * Lấy món ăn theo ID
      */
     public Dish getDishById(int id) {
-        if (id <= 0) {
-            throw new IllegalArgumentException("ID món ăn không hợp lệ");
-        }
-        return dishDAO.getById(id);
+    if (id <= 0) {
+        throw new IllegalArgumentException("ID món ăn không hợp lệ");
     }
+    return dishDAO.getById(id);
+}
 
     /**
      * Tạo món ăn mới

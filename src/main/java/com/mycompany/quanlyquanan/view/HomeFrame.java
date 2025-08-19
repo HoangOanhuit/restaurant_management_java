@@ -9,6 +9,7 @@ import com.mycompany.quanlyquanan.view.Employee.QuanLyNhanVienPanel;
 import com.mycompany.quanlyquanan.view.table.QuanLyBanPanel;
 import com.mycompany.quanlyquanan.view.dish.QuanLyDanhMucPanel;
 import com.mycompany.quanlyquanan.view.dish.QuanLyMonAnPanel;
+import com.mycompany.quanlyquanan.view.inventory.QuanLyKhoPanel;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.List;
@@ -309,7 +310,7 @@ public class HomeFrame extends javax.swing.JFrame {
         );
 
         pack();
-    }// </editor-fold>//GEN-END:initComponents
+    }// </editor-fold>                        
     
     private void initComponents() {
 

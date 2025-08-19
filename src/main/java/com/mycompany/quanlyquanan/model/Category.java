@@ -1,11 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package com.mycompany.quanlyquanan.model;
 
 import java.time.LocalDateTime;
 
+/**
+ * Model class cho Category
+ * @author Admin
+ */
 public class Category {
     private int id;
     private String name;
@@ -22,7 +22,7 @@ public class Category {
     }
 
     // Constructor đầy đủ tham số
-    public Category(int id, String name, String description, boolean isActive, 
+    public Category(int id, String name, String description, boolean isActive,
                    LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.name = name;
@@ -37,6 +37,15 @@ public class Category {
         this.name = name;
         this.description = description;
         this.isActive = true;
+        this.createdAt = LocalDateTime.now();
+        this.updatedAt = LocalDateTime.now();
+    }
+
+    // Constructor với tất cả thông tin cần thiết
+    public Category(String name, String description, boolean isActive) {
+        this.name = name;
+        this.description = description;
+        this.isActive = isActive;
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
     }
@@ -72,8 +81,8 @@ public class Category {
         return isActive;
     }
 
-    public void setActive(boolean isActive) {
-        this.isActive = isActive;
+    public void setActive(boolean active) {
+        isActive = active;
         this.updatedAt = LocalDateTime.now();
     }
 
@@ -91,6 +100,15 @@ public class Category {
 
     public void setUpdatedAt(LocalDateTime updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    // Utility methods
+    public String getDisplayName() {
+        return isActive ? name : name + " (Tạm ngưng)";
+    }
+
+    public String getStatusText() {
+        return isActive ? "Đang hoạt động" : "Tạm ngưng";
     }
 
     @Override

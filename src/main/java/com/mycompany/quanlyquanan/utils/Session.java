@@ -39,8 +39,8 @@ public class Session {
         return currentUser != null;
     }
     
-     public boolean isAdmin() {
-        return currentUser != null && "admin".equalsIgnoreCase(currentUser.getRole());
+    public boolean isAdmin() {
+    return currentUser != null && "admin".equalsIgnoreCase(currentUser.getPosition());
     }
 
     public boolean isNhanVien() {
@@ -54,4 +54,10 @@ public class Session {
      public boolean isBep() {
         return currentUser != null && "Bếp".equalsIgnoreCase(currentUser.getRole());
     }
+
+    public boolean canManageInventory() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+
 }

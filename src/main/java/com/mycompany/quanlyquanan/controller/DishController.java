@@ -1,6 +1,8 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
 package com.mycompany.quanlyquanan.controller;
-
-
 
 import com.mycompany.quanlyquanan.model.Category;
 import com.mycompany.quanlyquanan.model.Dish;
@@ -12,12 +14,12 @@ import javax.swing.JOptionPane;
 import java.math.BigDecimal;
 import java.util.List;
 
+
 /**
  *
- * @author Admin
+ * @author Administrator
  */
 public class DishController {
-    
     private final DishService dishService;
     private final CategoryService categoryService;
 
@@ -32,115 +34,8 @@ public class DishController {
     }
 
     /**
-     * Tạo món ăn mới với validation
+     * Lấy tất cả món ăn
      */
-    public boolean createWithValidation(String name, int categoryId, BigDecimal price, 
-                                      BigDecimal costPrice, String imageUrl, int prepTime, String description) {
-        Dish dish = new Dish();
-        dish.setName(name);
-        dish.setCategoryId(categoryId);
-        dish.setPrice(price);
-        dish.setCostPrice(costPrice);
-        dish.setImageUrl(imageUrl);
-        dish.setPrepTime(prepTime);
-        dish.setDescription(description);
-
-        if (!validateDish(dish, true)) {
-            return false;
-        }
-
-        return create(dish);
-    }
-
-    /**
-     * Cập nhật món ăn với validation
-     */
-    public boolean updateWithValidation(int id, String name, int categoryId, BigDecimal price, 
-                                      BigDecimal costPrice, String imageUrl, int prepTime, 
-                                      String description, boolean isAvailable) {
-        Dish dish = getById(id);
-        if (dish == null) {
-            return false;
-        }
-
-        dish.setName(name);
-        dish.setCategoryId(categoryId);
-        dish.setPrice(price);
-        dish.setCostPrice(costPrice);
-        dish.setImageUrl(imageUrl);
-        dish.setPrepTime(prepTime);
-        dish.setDescription(description);
-        dish.setAvailable(isAvailable);
-
-        if (!validateDish(dish, false)) {
-            return false;
-        }
-
-        return update(dish);
-    }
-
-    /**
-     * Format giá tiền để hiển thị
-     */
-    public String formatPrice(BigDecimal price) {
-        if (price == null) {
-            return "0 ₫";
-        }
-        return String.format("%,.0f ₫", price);
-    }
-
-    /**
-     * Format thời gian chế biến
-     */
-    public String formatPrepTime(int minutes) {
-        if (minutes < 60) {
-            return minutes + " phút";
-        } else {
-            int hours = minutes / 60;
-            int remainingMinutes = minutes % 60;
-            if (remainingMinutes == 0) {
-                return hours + " giờ";
-            } else {
-                return hours + "h " + remainingMinutes + "p";
-            }
-        }
-    }
-
-    /**
-     * Format lợi nhuận
-     */
-    public String formatProfitPercentage(double percentage) {
-        if (percentage == 0.0) {
-            return "0%";
-        }
-        return String.format("%.1f%%", percentage);
-    }
-
-    /**
-     * Hiển thị thông báo lỗi
-     */
-    private void showErrorMessage(String message) {
-        JOptionPane.showMessageDialog(
-            null,
-            message,
-            "Lỗi",
-            JOptionPane.ERROR_MESSAGE
-        );
-    }
-
-    /**
-     * Hiển thị thông báo thành công
-     */
-    private void showSuccessMessage(String message) {
-        JOptionPane.showMessageDialog(
-            null,
-            message,
-            "Thành công",
-            JOptionPane.INFORMATION_MESSAGE
-        );
-    }
-}
-     /* Lấy tất cả món ăn */
     public List<Dish> getAll() {
         try {
             return dishService.getAllDishes();
@@ -566,4 +461,114 @@ public class DishController {
 
         return true;
     }
+
+    /**
+     * Tạo món ăn mới với validation
+     */
+    public boolean createWithValidation(String name, int categoryId, BigDecimal price, 
+                                      BigDecimal costPrice, String imageUrl, int prepTime, String description) {
+        Dish dish = new Dish();
+        dish.setName(name);
+        dish.setCategoryId(categoryId);
+        dish.setPrice(price);
+        dish.setCostPrice(costPrice);
+        dish.setImageUrl(imageUrl);
+        dish.setPrepTime(prepTime);
+        dish.setDescription(description);
+
+        if (!validateDish(dish, true)) {
+            return false;
+        }
+
+        return create(dish);
+    }
+
+    /**
+     * Cập nhật món ăn với validation
+     */
+    public boolean updateWithValidation(int id, String name, int categoryId, BigDecimal price, 
+                                      BigDecimal costPrice, String imageUrl, int prepTime, 
+                                      String description, boolean isAvailable) {
+        Dish dish = getById(id);
+        if (dish == null) {
+            return false;
+        }
+
+        dish.setName(name);
+        dish.setCategoryId(categoryId);
+        dish.setPrice(price);
+        dish.setCostPrice(costPrice);
+        dish.setImageUrl(imageUrl);
+        dish.setPrepTime(prepTime);
+        dish.setDescription(description);
+        dish.setAvailable(isAvailable);
+
+        if (!validateDish(dish, false)) {
+            return false;
+        }
+
+        return update(dish);
+    }
+
+    /**
+     * Format giá tiền để hiển thị
+     */
+    public String formatPrice(BigDecimal price) {
+        if (price == null) {
+            return "0 ₫";
+        }
+        return String.format("%,.0f ₫", price);
+    }
+
+    /**
+     * Format thời gian chế biến
+     */
+    public String formatPrepTime(int minutes) {
+        if (minutes < 60) {
+            return minutes + " phút";
+        } else {
+            int hours = minutes / 60;
+            int remainingMinutes = minutes % 60;
+            if (remainingMinutes == 0) {
+                return hours + " giờ";
+            } else {
+                return hours + "h " + remainingMinutes + "p";
+            }
+        }
+    }
+
+    /**
+     * Format lợi nhuận
+     */
+    public String formatProfitPercentage(double percentage) {
+        if (percentage == 0.0) {
+            return "0%";
+        }
+        return String.format("%.1f%%", percentage);
+    }
+
+    /**
+     * Hiển thị thông báo lỗi
+     */
+    private void showErrorMessage(String message) {
+        JOptionPane.showMessageDialog(
+            null,
+            message,
+            "Lỗi",
+            JOptionPane.ERROR_MESSAGE
+        );
+    }
+
+    /**
+     * Hiển thị thông báo thành công
+     */
+    private void showSuccessMessage(String message) {
+        JOptionPane.showMessageDialog(
+            null,
+            message,
+            "Thành công",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+    }
+}
 
