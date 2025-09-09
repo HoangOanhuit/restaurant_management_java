@@ -545,7 +545,6 @@ com\mycompany\quanlyquanan\view\table\QuanLyBanPanel.class
 com\mycompany\quanlyquanan\utils\ButtonStyleUtil.class
 com\mycompany\quanlyquanan\view\HomeFrame$1.class
 com\mycompany\quanlyquanan\view\dish\CreateDishDialog$2.class
-com\mycompany\quanlyquanan\view\inventory\QuanLyKhoPanel$27.class
 com\mycompany\quanlyquanan\view\table\EditTableDialog.class
 com\mycompany\quanlyquanan\view\category\CreateCategoryDialog$9.class
 com\mycompany\quanlyquanan\view\LoginFrame.class

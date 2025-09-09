@@ -90,14 +90,14 @@ private String normalizeChangeType(StockLog.ChangeType changeType) {
     if (changeType == null) return "import";
     return changeType.name().toLowerCase();
 }
-
+/*
 private String normalizeReferenceType(String referenceType) {
     if (referenceType == null) return "material_import";
     return referenceType.toLowerCase();
 }
-    /**
-     * Lấy tất cả stock logs
-     */
+*/    
+    //Lấy tất cả stock logs
+    
     public List<StockLog> getAll() {
         List<StockLog> logs = new ArrayList<>();
         String sql = """
@@ -122,6 +122,31 @@ private String normalizeReferenceType(String referenceType) {
         return logs;
     }
 
+
+    private String normalizeReferenceType(String referenceType) {
+        if (referenceType == null) return "manual_adjust";
+
+        switch (referenceType.toLowerCase()) {
+            case "material_import":
+                return "material_import";
+            case "order_item":
+            case "order":
+                return "order_item";
+            case "manual_adjust":
+            case "adjust":
+                return "manual_adjust";
+            case "dish_preparation":
+                return "dish_preparation";
+            case "export":
+            case "manual_export":
+                return "manual_export";  // Giờ đã có trong database
+            case "waste":
+                return "waste_disposal"; // Giờ đã có trong database
+            default:
+                return "manual_adjust";
+        }
+    }    
+    
     /**
      * Lấy logs với phân trang
      */
@@ -375,6 +400,7 @@ private String normalizeReferenceType(String referenceType) {
     /**
      * Ghi log xuất kho
      */
+    /*
     public boolean logExport(int materialId, BigDecimal quantity, BigDecimal quantityBefore,
                            BigDecimal quantityAfter, int createdBy, String note) {
         StockLog log = new StockLog(
@@ -383,7 +409,15 @@ private String normalizeReferenceType(String referenceType) {
         );
         return insert(log);
     }
-
+    */
+    public boolean logExport(int materialId, BigDecimal quantity, BigDecimal quantityBefore,
+                           BigDecimal quantityAfter, int createdBy, String note) {
+        StockLog log = new StockLog(
+            materialId, StockLog.ChangeType.EXPORT, quantity.negate(),
+            quantityBefore, quantityAfter, null, "manual_export", note, createdBy  // Dùng "manual_export"
+        );
+        return insert(log);
+    }
     /**
      * Ghi log hoàn trả
      */
@@ -399,6 +433,7 @@ private String normalizeReferenceType(String referenceType) {
     /**
      * Ghi log hao hụt
      */
+    /*
     public boolean logWaste(int materialId, BigDecimal quantity, BigDecimal quantityBefore,
                           BigDecimal quantityAfter, int createdBy, String reason) {
         StockLog log = new StockLog(
@@ -407,7 +442,15 @@ private String normalizeReferenceType(String referenceType) {
         );
         return insert(log);
     }
-
+    */
+    public boolean logWaste(int materialId, BigDecimal quantity, BigDecimal quantityBefore,
+                          BigDecimal quantityAfter, int createdBy, String reason) {
+        StockLog log = new StockLog(
+            materialId, StockLog.ChangeType.WASTE, quantity.negate(),
+            quantityBefore, quantityAfter, null, "waste_disposal", reason, createdBy  // Dùng "waste_disposal"
+        );
+        return insert(log);
+    }    
     /**
      * Tìm kiếm stock logs
      */
@@ -580,54 +623,4 @@ private String normalizeReferenceType(String referenceType) {
     public boolean create(StockLog stockLog) {
         return insert(stockLog);
     }
-/*    
-    private String normalizeChangeType(StockLog.ChangeType type) {
-        if (type == null) {
-            return null;
-        }
-
-        String normalized = type.name().toLowerCase();
-
-        // Avoid exceeding database column lengths
-        return normalized.length() > 20 ? normalized.substring(0, 20) : normalized;
-    }
-
-    private String normalizeReferenceType(String type) {
-        if (type == null) {
-            return null;
-        }
-
-        String normalized;
-        switch (type.toLowerCase()) {
-            case "manual_adjust":
-
-            case "adjust":
-                normalized = "ADJUST";
-                break;
-            case "manual_export":
-
-            case "export":
-                normalized = "EXPORT";
-                break;
-            case "order":
-                normalized = "ORDER";
-                break;
-            case "return":
-                normalized = "RETURN";
-                break;
-            case "waste":
-                normalized = "WASTE";
-                break;
-            case "import":
-                normalized = "IMPORT";
-                break;
-            default:
-                normalized = type.toUpperCase();
-        }
-
-        // Ensure the value fits into typical database column lengths to avoid
-        // "Data truncated" errors when inserting.
-        return normalized.length() > 20 ? normalized.substring(0, 20) : normalized;
-    }
-*/
 }

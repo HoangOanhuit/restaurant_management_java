@@ -73,7 +73,7 @@ public class QuanLyKhoPanel extends javax.swing.JPanel {
         ComponentStyleUtil.enableTableSorting(jTable1);
         ComponentStyleUtil.styleSearchTextField(ipSearch);
         ComponentStyleUtil.styleMainButton(btnNhapKho);
-        ComponentStyleUtil.styleMainButton(btnReport);
+        //ComponentStyleUtil.styleMainButton(btnReport);
         ComponentStyleUtil.styleMainButton(btnRecord);
         ComponentStyleUtil.styleMainButton(btnXuatKho);
         
@@ -104,7 +104,6 @@ public class QuanLyKhoPanel extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         btnNhapKho = new javax.swing.JButton();
         btnRecord = new javax.swing.JButton();
-        btnReport = new javax.swing.JButton();
         btnXuatKho = new javax.swing.JButton();
         jHeader = new javax.swing.JPanel();
         ipSearch = new javax.swing.JTextField();
@@ -257,7 +256,7 @@ public class QuanLyKhoPanel extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 419, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 401, Short.MAX_VALUE))
         );
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
@@ -294,22 +293,6 @@ public class QuanLyKhoPanel extends javax.swing.JPanel {
             }
         });
 
-        btnReport.setBackground(new java.awt.Color(102, 102, 102));
-        btnReport.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        btnReport.setForeground(new java.awt.Color(255, 255, 255));
-        btnReport.setText("Báo Cáo Tồn Kho");
-        btnReport.setPreferredSize(new java.awt.Dimension(150, 40));
-        btnReport.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                btnReportMouseClicked(evt);
-            }
-        });
-        btnReport.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnReportActionPerformed(evt);
-            }
-        });
-
         btnXuatKho.setBackground(new java.awt.Color(255, 153, 0));
         btnXuatKho.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
         btnXuatKho.setForeground(new java.awt.Color(255, 255, 255));
@@ -337,8 +320,6 @@ public class QuanLyKhoPanel extends javax.swing.JPanel {
                 .addComponent(btnXuatKho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(btnRecord, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -348,7 +329,6 @@ public class QuanLyKhoPanel extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRecord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnNhapKho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnReport, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnXuatKho, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(25, Short.MAX_VALUE))
         );
@@ -656,14 +636,14 @@ public class QuanLyKhoPanel extends javax.swing.JPanel {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 841, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(ChiTietNguyenLieu, javax.swing.GroupLayout.DEFAULT_SIZE, 366, Short.MAX_VALUE))
-                    .addComponent(jHeader, javax.swing.GroupLayout.DEFAULT_SIZE, 1213, Short.MAX_VALUE))
+                    .addComponent(jHeader, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 1213, Short.MAX_VALUE)
+                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -673,10 +653,11 @@ public class QuanLyKhoPanel extends javax.swing.JPanel {
                 .addComponent(jHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ChiTietNguyenLieu, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ChiTietNguyenLieu, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 407, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -973,20 +954,6 @@ public class QuanLyKhoPanel extends javax.swing.JPanel {
         historyFrame.requestFocus();
     }//GEN-LAST:event_btnRecordActionPerformed
 
-    private void btnReportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnReportMouseClicked
-        // TODO add your handling code here:
-        btnReportActionPerformed(null);
-    }//GEN-LAST:event_btnReportMouseClicked
-
-    private void btnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnReportActionPerformed
-        // TODO add your handling code here:
-        javax.swing.JFrame frame = new javax.swing.JFrame("Báo Cáo Tồn Kho");
-        frame.setContentPane(new BaoCaoKhoPanel());
-        frame.pack();
-        frame.setLocationRelativeTo(this);
-        frame.setVisible(true);
-    }//GEN-LAST:event_btnReportActionPerformed
-
     private void btncountActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncountActionPerformed
         // TODO add your handling code here:
         loadAllMaterials();
@@ -1060,7 +1027,6 @@ public class QuanLyKhoPanel extends javax.swing.JPanel {
     private javax.swing.JButton btnHetHang;
     private javax.swing.JButton btnNhapKho;
     private javax.swing.JButton btnRecord;
-    private javax.swing.JButton btnReport;
     private javax.swing.JButton btnSearch;
     private javax.swing.JButton btnXuatKho;
     private javax.swing.JButton btncount;

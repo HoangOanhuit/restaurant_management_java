@@ -460,7 +460,7 @@ public class ReportPanel extends javax.swing.JPanel {
 
     public void initMonthlyDishesTableData() {
 //        table1.addRowSelectionInterval(new ModelVoucher);
-        monthDishesTableModel = setUpOrderTable(monthTable2);
+        monthDishesTableModel = setUpDishTable(monthTable2);
         List<TopDishes> dishes = topDishesController.getMonthTopDishes(selectedMonth, selectedYear);
         setMonthlyDishesTableData(monthDishesTableModel, dishes);
     }
@@ -568,7 +568,7 @@ public class ReportPanel extends javax.swing.JPanel {
     }
 
     private void initYearDishesTableData() {
-        yearDishesTableModel = setUpOrderTable(yearTable2);
+        yearDishesTableModel = setUpDishTable(yearTable2);
         List<TopDishes> dishes = topDishesController.getYearTopDishes(selectedYearAnnualReport);
         setYearDishesTableData(yearDishesTableModel, dishes);
     }
